@@ -23,3 +23,12 @@ class Plot2DView(TemplateView):
         context = super(Plot2DView, self).get_context_data(**kwargs)
         context['plot'] = plots.plot2d()
         return context
+
+class Plot3DView(TemplateView):
+    template_name = "plot.html"
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(Plot3DView, self).get_context_data(**kwargs)
+        context['plot'] = plots.plot3d()
+        return context
