@@ -107,3 +107,26 @@ def plot3d():
     fig = go.Figure(data=data, layout=layout)
     plot_div = plot(fig, output_type='div', include_plotlyjs=False)
     return plot_div
+
+def plot1d_multiple(n):
+    x_array = []
+    y_array = []
+    for i in range(n):
+        x_array.append(range(10))
+        y_array.append(np.random.rand(10)*10)
+    data = []
+    for x,y in zip(x_array,y_array):
+        trace = go.Scatter(x=x,y=y)
+        data.append(trace)
+
+    layout = go.Layout(
+        xaxis=dict(
+            autorange=True
+        ),
+        yaxis=dict(
+            autorange=True
+        )
+    )
+    fig = go.Figure(data=data, layout=layout)
+    plot_div = plot(fig, output_type='div', include_plotlyjs=False)
+    return plot_div

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{block.super}}
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <h1>Plot using Plot.ly</h1>
+  <p class="lead">Ajax test!</p>
+</div>
+<!-- /.container -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2"><div id="plot">{{plot|safe}}</div></div>
+  </div>
+</div>
+<!-- /.container -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <button id="button" class="btn btn-primary" data-loading-text="loading stuff..." >Change number of graphics</button>
+    </div>
+  </div>
+</div>
+<!-- /.container -->
+
+{% endblock %}
+
+{% block tail %}
+{{block.super}}
+<script>
+// Set up the buttons
+$("#button").click(function() {
+  $(this).button('loading');
+  // Then whatever you actually want to do i.e. submit form
+  // After that has finished, reset the button state using
+  var n = Math.floor((Math.random() * 10) + 1);
+  $.ajax({
+    url: "{% url 'app1:plot1d_multiple_ajax' n=1234 %}".replace('1234',""+n),
+    type: 'get', // This is the default though, you don't actually need to always mention it
+    success: function(data) {
+        $('#plot').empty().append(data);
+    },
+    failure: function(data) {
+        alert('Got an error dude');
+    }
+  });
+  $(this).button('reset');
+});
+</script>
+{% endblock %}
