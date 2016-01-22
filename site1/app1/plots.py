@@ -23,5 +23,5 @@ def plot1d():
         )
     )
     fig = go.Figure(data=data, layout=layout)
-    plot_div = plot(fig, output_type='div')
+    plot_div = plot(fig, output_type='div', include_plotlyjs=False)
     return plot_div
