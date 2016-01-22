@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+  <h1>Plot 1D</h1>
+  <p class="lead">It should be working!</p>
+</div>
+<!-- /.container -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">{{plot|safe}}</div>
+  </div>
+</div>
+
+</div>
+{% endblock %}
