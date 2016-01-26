@@ -23,7 +23,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <button id="button" class="btn btn-primary" data-loading-text="loading stuff..." >Change number of graphics</button>
+      <button id="button" type="button" class="btn btn-primary" data-loading-text="Loading..." >Change number of graphics</button>
     </div>
   </div>
 </div>
@@ -36,7 +36,8 @@
 <script>
 // Set up the buttons
 $("#button").click(function() {
-  $(this).button('loading');
+  var btn = $(this);
+  btn.button('loading');
   // Then whatever you actually want to do i.e. submit form
   // After that has finished, reset the button state using
   var n = Math.floor((Math.random() * 10) + 1);
@@ -45,12 +46,14 @@ $("#button").click(function() {
     type: 'get', // This is the default though, you don't actually need to always mention it
     success: function(data) {
         $('#plot').empty().append(data);
+        btn.button('reset');
     },
     failure: function(data) {
         alert('Got an error dude');
+        btn.button('reset');
     }
   });
-  $(this).button('reset');
+
 });
 </script>
 {% endblock %}
