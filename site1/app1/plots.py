@@ -3,49 +3,51 @@ import plotly.graph_objs as go
 import numpy as np
 
 def plot1d():
+    x_data = np.arange(0, 120,0.1)
     trace1 = go.Scatter(
-        x=[0, 1, 2, 3, 4, 5, 6, 7, 8],
-        y=[8, 7, 6, 5, 4, 3, 2, 1, 0]
+        x=x_data,
+        y=np.sin(x_data)
     )
-    trace2 = go.Scatter(
-        x=[0, 1, 2, 3, 4, 5, 6, 7, 8],
-        y=[0, 1, 2, 3, 4, 5, 6, 7, 8]
-    )
-    data = [trace1, trace2]
+
+    data = [trace1]
     layout = go.Layout(
+        # autosize=False,
+        # width=900,
+        # height=500,
+
         xaxis=dict(
-            type='log',
             autorange=True
         ),
         yaxis=dict(
-            type='log',
             autorange=True
         )
     )
     fig = go.Figure(data=data, layout=layout)
     plot_div = plot(fig, output_type='div', include_plotlyjs=False)
+    print "Number of points: %s" % len(x_data)
     return plot_div
 
 def plot2d():
-    t = np.linspace(-1,1.2,2000)
-    x = (t**3)+(0.3*np.random.randn(2000))
-    y = (t**6)+(0.3*np.random.randn(2000))
+    t = np.linspace(-1,1,2000)
+    x = (t**2)+(0.5*np.random.randn(2000))
+    y = (t**2)+(0.5*np.random.randn(2000))
 
     trace1 = go.Scatter(
         x=x, y=y, mode='markers', name='points',
-        marker=dict(color='rgb(102,0,0)', size=2, opacity=0.4)
+        marker=dict(color='rgb(0,0,0)', size=2, opacity=0.4)
     )
-    trace2 = go.Histogram2dcontour(
-        x=x, y=y, name='density', ncontours=20,
-        colorscale='Jet', reversescale=True, showscale=False
+    trace2 = go.Histogram2d(
+        x=x, y=y, name='density',
+        nbinsx=100, nbinsy=100,
+        colorscale='Jet', reversescale=False, showscale=True
     )
     trace3 = go.Histogram(
         x=x, name='x density',
-        marker=dict(color='rgb(102,0,0)'),
+        marker=dict(color='blue'),
         yaxis='y2'
     )
     trace4 = go.Histogram(
-        y=y, name='y density', marker=dict(color='rgb(102,0,0)'),
+        y=y, name='y density', marker=dict(color='blue'),
         xaxis='x2'
     )
     data = [trace1, trace2, trace3, trace4]
@@ -53,8 +55,8 @@ def plot2d():
     layout = go.Layout(
         showlegend=False,
         autosize=False,
-        width=600,
-        height=550,
+        width=800,
+        height=700,
         xaxis=dict(
             domain=[0, 0.85],
             showgrid=False,
@@ -95,8 +97,8 @@ def plot3d():
     layout = go.Layout(
         title='3d Plot of the Mt Bruno Elevation',
         autosize=False,
-        width=500,
-        height=500,
+        width=800,
+        height=800,
         margin=dict(
             l=65,
             r=50,
@@ -112,14 +114,15 @@ def plot1d_multiple(n):
     x_array = []
     y_array = []
     for i in range(n):
-        x_array.append(range(10))
-        y_array.append(np.random.rand(10)*10)
+        x_array.append(range(20))
+        y_array.append(np.random.rand(20)*10)
     data = []
     for x,y in zip(x_array,y_array):
         trace = go.Scatter(x=x,y=y)
         data.append(trace)
 
     layout = go.Layout(
+        height=600,
         xaxis=dict(
             autorange=True
         ),

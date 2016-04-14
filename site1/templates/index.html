@@ -3,31 +3,30 @@
 {% block content %}
 
 <div class="container">
-  <h1>Bootstrap Index Page</h1>
-  <p class="lead">It should be working!</p>
+  <h1>PlotLy Example plots</h1>
+  <p class="lead">Click to see...</p>
 </div>
 
 <div class="container">
-  <table class="table table-striped">
+  <table class="table table-striped table-hover">
     <tr>
       <td>1D</td>
-      <td><a class="btn btn-default" href="{% url 'app1:plot1d' %}" role="button">Link</a></td>
+      <td><a class="btn btn-default" href="{% url 'app1:plot1d' %}" role="button">View</a></td>
     </tr>
     <tr>
       <td>2D</td>
-      <td><a class="btn btn-default" href="{% url 'app1:plot2d' %}" role="button">Link</a></td>
+      <td><a class="btn btn-default" href="{% url 'app1:plot2d' %}" role="button">View</a></td>
     </tr>
     <tr>
       <td>3D</td>
-      <td><a class="btn btn-default" href="{% url 'app1:plot3d' %}" role="button">Link</a></td>
+      <td><a class="btn btn-default" href="{% url 'app1:plot3d' %}" role="button">View</a></td>
     </tr>
     <tr>
       <td>Random 1D (Ajax)</td>
-      <td><a class="btn btn-default" href="{% url 'app1:plot1d_multiple' 1 %}" role="button">Link</a></td>
+      <td><a class="btn btn-default" href="{% url 'app1:plot1d_multiple' 1 %}" role="button">View</a></td>
     </tr>
   </table>
 </div>
-
 <!-- /.container -->
 
 {% endblock %}

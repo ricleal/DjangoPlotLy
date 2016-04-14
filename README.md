@@ -8,7 +8,7 @@ Install requirements an run it:
 ```bash
 virtualenv env
 source env/bin/activate
-pip install -U -r pip.txt
+pip install -U -r requirements.txt
 # Run it
 cd site1/
 python manage.py  runserver
@@ -29,5 +29,4 @@ Code for plots is here:
 site1/app1/plots.py
 ```
 
-Requirements are in the pip.txt file.
-
+Requirements are in the requirements.txt file.

@@ -15,7 +15,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-8 col-md-offset-2"><div id="plot">{{plot|safe}}</div></div>
+    <div class="col-md-12"><div id="plot">{{plot|safe}}</div></div>
   </div>
 </div>
 <!-- /.container -->
@@ -49,7 +49,7 @@ $("#button").click(function() {
         btn.button('reset');
     },
     failure: function(data) {
-        alert('Got an error dude');
+        alert('Got an error dude!');
         btn.button('reset');
     }
   });
