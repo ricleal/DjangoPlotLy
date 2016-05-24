@@ -11,22 +11,34 @@
   <h1>Plot using Plot.ly and some clever JavaScript</h1>
   <p class="lead">Here we go...</p>
 </div>
-<!-- /.container -->
 
 <div class="container">
   <div class="row" style="border: 1px solid black">
     <div id="plot_container" class="col-md-12">{{plot|safe}}</div>
   </div>
 </div>
-<!-- /.container -->
 
 <div class="container">
-  <pre>
-    //var myDiv = $('#plot_container').children();
-    var myDiv = $('.plotly-graph-div');
-    myDiv.on('plotly_selected', function(eventData) {
-      console.log(eventData.points);
-    });
-  </pre>
+  <div class="row">
+    <div class="col-md-12">
+      <br/>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <pre>
+        var myDiv = $('.plotly-graph-div')[0];
+        myDiv.on('plotly_selected', function(eventData) {
+          console.log(eventData.points);
+          for (var idx = 0; idx < eventData.points.length; idx++) {
+            console.log(eventData.points[idx]);
+          };
+        });
+      </pre>
+    </div>
+  </div>
 </div>
 {% endblock %}
