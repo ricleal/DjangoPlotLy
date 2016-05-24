@@ -8,17 +8,25 @@
 {% block content %}
 
 <div class="container">
-  <h1>Plot using Plot.ly</h1>
+  <h1>Plot using Plot.ly and some clever JavaScript</h1>
   <p class="lead">Here we go...</p>
 </div>
 <!-- /.container -->
 
 <div class="container">
   <div class="row" style="border: 1px solid black">
-    {# <div id="plot_container" class="col-md-8 col-md-offset-2">{{plot|safe}}</div>#}
-    <div class="col-md-12">{{plot|safe}}</div>
+    <div id="plot_container" class="col-md-12">{{plot|safe}}</div>
   </div>
 </div>
 <!-- /.container -->
 
+<div class="container">
+  <pre>
+    //var myDiv = $('#plot_container').children();
+    var myDiv = $('.plotly-graph-div');
+    myDiv.on('plotly_selected', function(eventData) {
+      console.log(eventData.points);
+    });
+  </pre>
+</div>
 {% endblock %}

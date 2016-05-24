@@ -45,5 +45,17 @@ class Plot1DMultipleView(TemplateView):
         return context
 
 def plot1d_multiple_ajax(request,n):
+    """
+    Only handles AJAX queries
+    """
     print n
     return HttpResponse(plots.plot1d_multiple(int(n)))
+
+class PlotIqView(TemplateView):
+    template_name = "plot_fit.html"
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(PlotIqView, self).get_context_data(**kwargs)
+        context['plot'] = plots.plotIq()
+        return context

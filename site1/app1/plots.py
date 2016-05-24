@@ -1,6 +1,9 @@
 from plotly.offline import plot
 import plotly.graph_objs as go
 import numpy as np
+import glob
+import os
+
 
 def plot1d():
     x_data = np.arange(0, 120,0.1)
@@ -129,6 +132,47 @@ def plot1d_multiple(n):
         yaxis=dict(
             autorange=True
         )
+    )
+    fig = go.Figure(data=data, layout=layout)
+    plot_div = plot(fig, output_type='div', include_plotlyjs=False)
+    return plot_div
+
+def plotIq():
+    current_dir = os.path.dirname(os.path.realpath(__file__))
+    data_files = glob.glob( current_dir + '/data/scan*_Iq.txt')
+
+    data = []
+    for filename in data_files:
+        csv = np.genfromtxt (filename, delimiter=None,  comments='#')
+        x = csv[:,0]
+        y = csv[:,1]
+        trace = go.Scatter(
+            x=x,
+            y=y,
+            mode = 'lines+markers',
+            name = filename.split('/')[-1],
+            error_y=dict(
+                type='data',
+                visible=True,
+                array=np.sqrt(csv[:,1]),
+                thickness=1.5,
+                width=3,
+                opacity=0.5
+            ),
+        )
+        data.append(trace)
+
+    layout = go.Layout(
+        height=600,
+        xaxis=dict(
+            autorange=True,
+            type='log',
+        ),
+        yaxis=dict(
+            autorange=True,
+            type='log',
+        ),
+        title = "Iq chart"
     )
     fig = go.Figure(data=data, layout=layout)
     plot_div = plot(fig, output_type='div', include_plotlyjs=False)
