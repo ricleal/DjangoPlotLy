@@ -3,6 +3,7 @@ import plotly.graph_objs as go
 import numpy as np
 import glob
 import os
+import datetime
 
 
 def plot1d():
@@ -174,6 +175,68 @@ def plotIq():
         ),
         title = "Iq chart"
     )
+    fig = go.Figure(data=data, layout=layout)
+    plot_div = plot(fig, output_type='div', include_plotlyjs=False)
+    return plot_div
+
+def live_plot_get_x_y_data():
+    """
+    Generates normal distributed 2D points
+    Numer of points depends on the real time seconds.
+    """
+    now = datetime.datetime.now()
+    n_points = 100 * now.second;
+    mean = [0, 0]
+    cov = [[1, 0], [0, 1]]  # diagonal covariance
+    x, y = np.random.multivariate_normal(mean, cov, n_points).T
+    return x,y
+
+def live_plot_get_data():
+    """
+    Data to generate the first plot
+    """
+    x,y = live_plot_get_x_y_data()
+    data = dict(
+        x=x, y=y, mode='markers', name='points',
+        marker=dict(color='rgb(0,0,0)', size=4, opacity=0.4)
+    )
+    return data
+
+def live_plot_get_data_serialized():
+    """
+    Data to generate the updated plot.
+    It will serialized by the Django view
+    """
+    x,y = live_plot_get_x_y_data()
+    data = dict(
+        x=x.tolist(), y=y.tolist(), mode='markers', name='points',
+        marker=dict(color='rgb(0,0,0)', size=4, opacity=0.4)
+    )
+    return data
+
+def plotLive():
+
+    trace = go.Scatter(live_plot_get_data())
+    data = [trace]
+
+    layout = go.Layout(
+        showlegend=False,
+        autosize=False,
+        width=800,
+        height=700,
+        xaxis=dict(
+            range=[-4, 4],
+        ),
+        yaxis=dict(
+            range=[-4, 4],
+        ),
+        margin=dict(
+            t=50
+        ),
+        hovermode='closest',
+        bargap=0,
+    )
+
     fig = go.Figure(data=data, layout=layout)
     plot_div = plot(fig, output_type='div', include_plotlyjs=False)
     return plot_div

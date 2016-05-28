@@ -1,6 +1,6 @@
 
 from django.views.generic import TemplateView
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 
 from . import plots
 
@@ -59,3 +59,23 @@ class PlotIqView(TemplateView):
         context = super(PlotIqView, self).get_context_data(**kwargs)
         context['plot'] = plots.plotIq()
         return context
+
+class PlotLiveView(TemplateView):
+    template_name = "plot_live.html"
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(PlotLiveView, self).get_context_data(**kwargs)
+        context['plot'] = plots.plotLive()
+        return context
+
+def  plot_live_update(request):
+    '''
+    Handle ajax call to update the live plot
+    '''
+    if request.is_ajax():
+        data = plots.live_plot_get_data_serialized()
+        # In order to allow non-dict objects to be serialized set the safe parameter to False
+        return JsonResponse([data], safe=False)
+    else:
+        return HttpResponseBadRequest()

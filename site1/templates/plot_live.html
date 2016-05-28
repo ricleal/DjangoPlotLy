@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block head %}
+{{block.super}}
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Live Plot using Plot.ly</h1>
+    <p class="lead">Update every few seconds</p>
+</div>
+<!-- /.container -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">{{plot|safe}}</div>
+  </div>
+</div>
+
+<!-- /.container -->
+
+<script type="text/javascript">
+    (function poll() {
+        setTimeout(function() {
+            $.ajax({
+                type: "GET",
+                url: "{% url 'app1:plot_live_update' %}",
+                success: function(data) {
+                    var plot_div = $('.plotly-graph-div')[0];
+                    // If the new data is an update to the old one
+                    // var old_data = plot_div.data;
+                    // old_data[0].x = old_data[0].x.concat(data[0].x);
+                    // old_data[0].y = old_data[0].y.concat(data[0].y);
+                    // Plotly.newPlot(plot_div,old_data, plot_div.layout);
+                    Plotly.newPlot(plot_div,data, plot_div.layout);
+                },
+                dataType: "json",
+                complete: poll,
+                timeout: 2000
+            })
+        }, 1000);
+    })();
+</script>
+
+
+{% endblock %}
