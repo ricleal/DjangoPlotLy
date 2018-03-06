@@ -1,11 +1,17 @@
 
-from django.views.generic import TemplateView
+import logging
+
 from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
+from django.views.generic import TemplateView
 
 from . import plots
 
+logger = logging.getLogger(__name__)
+
+
 class IndexView(TemplateView):
     template_name = "index.html"
+
 
 class Plot1DView(TemplateView):
     template_name = "plot.html"
@@ -16,6 +22,7 @@ class Plot1DView(TemplateView):
         context['plot'] = plots.plot1d()
         return context
 
+
 class Plot2DView(TemplateView):
     template_name = "plot.html"
 
@@ -25,6 +32,7 @@ class Plot2DView(TemplateView):
         context['plot'] = plots.plot2d()
         return context
 
+
 class Plot3DView(TemplateView):
     template_name = "plot.html"
 
@@ -33,6 +41,7 @@ class Plot3DView(TemplateView):
         context = super(Plot3DView, self).get_context_data(**kwargs)
         context['plot'] = plots.plot3d()
         return context
+
 
 class Plot1DMultipleView(TemplateView):
     template_name = "plot_multiple.html"
@@ -44,12 +53,14 @@ class Plot1DMultipleView(TemplateView):
         context['plot'] = plots.plot1d_multiple(n)
         return context
 
-def plot1d_multiple_ajax(request,n):
+
+def plot1d_multiple_ajax(request, n):
     """
     Only handles AJAX queries
     """
-    print n
+    logger.debug("Plotting {} plots.".format(n))
     return HttpResponse(plots.plot1d_multiple(int(n)))
+
 
 class PlotIqView(TemplateView):
     template_name = "plot_fit.html"
@@ -60,6 +71,7 @@ class PlotIqView(TemplateView):
         context['plot'] = plots.plotIq()
         return context
 
+
 class PlotLiveView(TemplateView):
     template_name = "plot_live.html"
 
@@ -69,13 +81,16 @@ class PlotLiveView(TemplateView):
         context['plot'] = plots.plotLive()
         return context
 
-def  plot_live_update(request):
+
+def plot_live_update(request):
     '''
     Handle ajax call to update the live plot
     '''
     if request.is_ajax():
+        logger.debug("Live plot updated...")
         data = plots.live_plot_get_data_serialized()
-        # In order to allow non-dict objects to be serialized set the safe parameter to False
+        # In order to allow non-dict objects to be serialized set the safe
+        # parameter to False
         return JsonResponse([data], safe=False)
     else:
         return HttpResponseBadRequest()

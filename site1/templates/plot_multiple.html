@@ -29,6 +29,12 @@
 </div>
 <!-- /.container -->
 
+<div class="container">
+  <p>
+    &nbsp;
+  </p>
+  <a class="btn btn-primary pull-right" href="{% url 'index' %}"> Go back to index...</a>
+</div>
 {% endblock %}
 
 {% block tail %}
@@ -40,7 +46,7 @@ $("#button").click(function() {
   btn.button('loading');
   // Then whatever you actually want to do i.e. submit form
   // After that has finished, reset the button state using
-  var n = Math.floor((Math.random() * 10) + 1);
+  var n = Math.floor((Math.random() * 20) + 1);
   $.ajax({
     url: "{% url 'app1:plot1d_multiple_ajax' n=1234 %}".replace('1234',""+n),
     type: 'get', // This is the default though, you don't actually need to always mention it
