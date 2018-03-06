@@ -28,7 +28,7 @@ Somewhere in the HTML body:
 <div class="col-md-12">{{plot|safe}}</div>
 ```
 
-## TLTR;
+# TLTR;
 
 Tests using Plot.ly inside Django.
 
