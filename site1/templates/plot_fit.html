@@ -9,7 +9,7 @@
 
 <div class="container">
   <h1>Plot using Plot.ly and some clever JavaScript</h1>
-  <p class="lead">Here we go...</p>
+  <p class="lead">Select some points (Box or Lasso tool) from the plot and see them printed.</p>
 </div>
 
 <div class="container">
@@ -43,11 +43,34 @@
 </div>
 
 <div class="container">
+  <p>Selected points:</p>
+  <pre id="selected_points">
+
+  </pre>
+</div>
+
+<div class="container">
   <p>
     &nbsp;
   </p>
   <a class="btn btn-primary pull-right" href="{% url 'index' %}"> Go back to index...</a>
 </div>
 <!-- /.container -->
+{% endblock %}
 
+{% block tail %}
+{{block.super}}
+<script>
+    var myDiv = $('.plotly-graph-div')[0];
+    myDiv.on('plotly_selected', function(eventData) {
+      console.log(eventData.points);
+      $("#selected_points").empty();
+      for (var idx = 0; idx < eventData.points.length; idx++) {
+        // console.log(eventData.points[idx]);
+        $("#selected_points").append(
+          "<strong>" + eventData.points[idx].data.name + "</strong>=(" + eventData.points[idx].x + "," + eventData.points[idx].y + ") "
+        );
+      };
+    });
+</script>
 {% endblock %}
