@@ -32,7 +32,7 @@ Somewhere in the HTML body:
 
 Tests using Plot.ly inside Django.
 
-** Testing **
+**Testing**
 
 - 1D
 - 2D
