@@ -94,3 +94,12 @@ def plot_live_update(request):
         return JsonResponse([data], safe=False)
     else:
         return HttpResponseBadRequest()
+
+class Plot3DScatterView(TemplateView):
+    template_name = "plot.html"
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(Plot3DScatterView, self).get_context_data(**kwargs)
+        context['plot'] = plots.plot3D_scatter
+        return context

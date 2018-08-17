@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^plotIq/$', views.PlotIqView.as_view(), name='plotIq'),
     url(r'^plot_live/$', views.PlotLiveView.as_view(), name='plot_live'),
     url(r'^plot_live_update/$', views.plot_live_update, name='plot_live_update'),
+    url(r'^plot3d_scatter/$', views.Plot3DScatterView.as_view(), name='plot3d_scatter'),
 
 
 ]

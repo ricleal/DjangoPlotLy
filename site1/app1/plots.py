@@ -277,3 +277,46 @@ def plotLive():
     fig = go.Figure(data=data, layout=layout)
     plot_div = plot(fig, output_type='div', include_plotlyjs=False)
     return plot_div
+
+def plot3D_scatter():
+
+    x, y, z = np.random.rand(3,100)
+
+    current_dir = os.path.dirname(os.path.realpath(__file__))
+    data_file = os.path.join(current_dir,'data', 'cat.csv')
+    csv = np.genfromtxt(data_file, delimiter=None,  comments='#')
+    cat_x = csv[:, 0]
+    cat_y = csv[:, 1]
+    cat_z = csv[:, 2]
+
+    x = np.hstack([x, (cat_x-cat_x.min())/(cat_x.max()-cat_x.min())])
+    y = np.hstack([y, (cat_y-cat_y.min())/(cat_y.max()-cat_y.min())])
+    z = np.hstack([z, (cat_z-cat_z.min())/(cat_z.max()-cat_z.min())])
+
+    trace1 = go.Scatter3d(
+        x=x,
+        y=y,
+        z=z,
+        mode='markers',
+        marker=dict(
+            size=12,
+            color=x+z,                # set color to an array/list of desired values
+            colorscale='Viridis',   # choose a colorscale
+            opacity=0.5,
+            symbol='square',
+        )
+    )
+
+    data = [trace1]
+    layout = go.Layout(
+        height=1000,
+        margin=dict(
+            l=0,
+            r=0,
+            b=0,
+            t=0
+        )
+    )
+    fig = go.Figure(data=data, layout=layout)
+    plot_div = plot(fig, output_type='div', include_plotlyjs=False)
+    return plot_div
