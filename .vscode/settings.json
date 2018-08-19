@@ -1,0 +1,31 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "editor.rulers": [80,100],
+    "files.exclude": {
+        "**/*.pyc": true,
+        "**/__pycache__": true,
+        "**/*.*~": true,
+        "**/venv": true,
+        "**/dist": true,
+        "**/.settings": true,
+        "**/.vscode": true,
+        "**/.gitignore": true,
+        "**/dump.rdb": true,
+        "**/.cache": true,
+        "**/.pytest_cache": true,
+    },
+    "files.associations": {
+        "**/env.base": "ini"
+    },
+    //
+    "python.pythonPath": "${workspaceFolder}/venv/bin/python",
+    // Pylint
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+
+    // formatter
+    "python.formatting.provider": "autopep8",
+    "python.formatting.autopep8Path": "${workspaceRoot}/venv/bin/autopep8",
+
+}
