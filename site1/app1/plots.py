@@ -148,10 +148,10 @@ def plot1d_multiple(n):
     x_array = []
     y_array = []
     n_points = 100
-    x = np.arange(0.001, 1, 1/n_points)
+    x = np.arange(-2*np.pi, 2*np.pi, 1/n_points)
     for i in range(n):
         x_array.append(x)
-        y_array.append(np.sin(x*np.pi*(i+2)))
+        y_array.append((i+1)*np.sin(x*(i+1)*0.1))
     data = []
     for x, y in zip(x_array, y_array):
         trace = go.Scatter(x=x, y=y)
@@ -160,7 +160,8 @@ def plot1d_multiple(n):
     layout = go.Layout(
         height=600,
         xaxis=dict(
-            autorange=True
+            autorange=True,
+            title="Angle (radians)"
         ),
         yaxis=dict(
             autorange=True

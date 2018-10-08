@@ -45,10 +45,11 @@ Tests using Plot.ly inside Django.
 
 - 1D
 - 2D
-- 3D
+- 3D surface plot
 - 1D generated from Ajax (to test plotly speed)
 - 1D from CSV files
 - Live 2D Plot
+- 3D scatter plot to test PlotLy speed with multiple 3D points
 
 ## Installation
 

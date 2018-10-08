@@ -24,6 +24,7 @@
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
       <button id="button" type="button" class="btn btn-primary" data-loading-text="Loading..." >Change number of graphics</button>
+      <div id=time></div>
     </div>
   </div>
 </div>
@@ -46,7 +47,7 @@ $("#button").click(function() {
   btn.button('loading');
   // Then whatever you actually want to do i.e. submit form
   // After that has finished, reset the button state using
-  var n = Math.floor((Math.random() * 20) + 1);
+  var n = Math.floor((Math.random() * 50) + 1);
   $.ajax({
     url: "{% url 'app1:plot1d_multiple_ajax' n=1234 %}".replace('1234',""+n),
     type: 'get', // This is the default though, you don't actually need to always mention it
@@ -57,6 +58,12 @@ $("#button").click(function() {
     failure: function(data) {
         alert('Got an error dude!');
         btn.button('reset');
+    },
+    start_time: new Date().getTime(),
+    complete: function(data) {
+        var message = 'Time: '+(new Date().getTime() - this.start_time)+' ms for ' + n + ' lines.';
+        // console.log(message);
+        $("#time").html('<br/><p class="lead">' + message + '</p>');
     }
   });
 
