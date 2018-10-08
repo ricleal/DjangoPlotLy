@@ -6,14 +6,14 @@
 
 ## Intructions
 
-Very simple introduction about using PlotLy in a Django webapp.
+Very simple introduction of using PlotLy in a Django webapp.
 
-Create your regular Plotly `Figure` with `data` and `layout` :
+Create your plot using the Plotly `Figure` with `data` and `layout` :
 ```python
 fig = go.Figure(data=data, layout=layout)
 ```
 
-Import the function `from plotly.offline import plot` which creates a div to be rendered in the template:
+Import the function `from plotly.offline import plot` which creates a `<div>(...)</div>` to be rendered in the template:
 ```python
 plot_div = plot(fig, output_type='div', include_plotlyjs=False)
 ```
@@ -23,19 +23,19 @@ In the view append the `div` above to the `context_data`:
 context['plot'] = plot_div
 ```
 
-Then in respective template:
+Then in the respective template:
 
-1. Add to HTML head:
+1. Add to the HTML head:
 ```html
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 ```
 
-2. Somewhere in the HTML body, call the context the variable and render it as safe:
+2. Somewhere in the HTML body, call the context variable and render it as `safe`:
 ```html
 <div class="col-md-12">{{plot|safe}}</div>
 ```
 
-Note that I used `include_plotlyjs=False` in the `plotly.offline.plot` and in the top of my template I explcity include the JavaScript for PlotLy. In the case you want to display several plots in same webapp the browser should be smart enough to cache the `plotly-latest.min.js` thus speeding up the the graphic display process.
+Note that I used `include_plotlyjs=False` in the `plotly.offline.plot`, and in the top of my template, I explcity include the PlotLy JavaScript. In the case you want to display several plots in same webapp, the browser should be smart enough to cache the `plotly-latest.min.js` thus speeding up the the graphic display process.
 
 # TLTR;
 
