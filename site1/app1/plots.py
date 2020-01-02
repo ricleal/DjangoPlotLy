@@ -192,7 +192,6 @@ def plotIq():
                 array=np.sqrt(csv[:, 1]),
                 thickness=1.5,
                 width=3,
-                opacity=0.5
             ),
         )
         data.append(trace)

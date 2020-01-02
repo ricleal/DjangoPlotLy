@@ -2,7 +2,7 @@
 
 ## Notes
 
-- Updated to use Django 2.0
+- Updated to use Django 3.0
 
 ## Intructions
 
