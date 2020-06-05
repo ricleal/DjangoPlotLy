@@ -1,5 +1,5 @@
 asgiref==3.2.3
-Django==3.0.1
+Django==3.0.7
 numpy==1.18.0
 plotly==4.4.1
 pytz==2019.3
