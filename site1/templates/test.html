@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block head %}
+{{block.super}}
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Test Ajax</h1>
+    <p class="lead">Update every few seconds</p>
+</div>
+
+<div class="container">
+  <div class="row">
+    <!-- Here the ajax return call content -->
+    <div id="test_div" class="col-md-12">{{context_test}}</div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+    (function poll() {
+        setTimeout(function() {
+            $.ajax({
+                type: "GET",
+                url: "{% url 'app1:test_ajax' %}",
+                success: function(data) {
+                  // see the browser console!!!
+                  console.info("success:", data)
+                  $("#test_div").html(data);
+                },
+                complete: poll,
+                timeout: 2000
+            })
+        }, 1000);
+    })();
+</script>
+
+
+{% endblock %}

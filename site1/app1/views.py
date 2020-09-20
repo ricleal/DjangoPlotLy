@@ -103,3 +103,26 @@ class Plot3DScatterView(TemplateView):
         context = super(Plot3DScatterView, self).get_context_data(**kwargs)
         context['plot'] = plots.plot3D_scatter
         return context
+
+class TestView(TemplateView):
+    template_name = "test.html"
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(TestView, self).get_context_data(**kwargs)
+        context['context_test'] = 'test message'
+        return context
+
+def test_ajax(request):
+    '''
+    Handle ajax call to update the live plot
+    '''
+
+    import random
+    random_number = random.randint(1,10)
+
+    if request.is_ajax():
+        logger.debug("Test updated... {}".format(random_number))
+        return HttpResponse( "Response with random number: " + str(random_number) )
+    else:
+        return HttpResponseBadRequest()

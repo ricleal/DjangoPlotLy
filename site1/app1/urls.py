@@ -17,5 +17,9 @@ urlpatterns = [
     url(r'^plot_live_update/$', views.plot_live_update, name='plot_live_update'),
     url(r'^plot3d_scatter/$', views.Plot3DScatterView.as_view(), name='plot3d_scatter'),
 
+    url(r'^test/$', views.TestView.as_view(), name='test'),
+    url(r'^test_ajax/$', views.test_ajax, name='test_ajax'),
+    
+
 
 ]
